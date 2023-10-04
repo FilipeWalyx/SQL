@@ -28,16 +28,46 @@ VALUES
 -- Order the superstore items by price.
 SELECT * FROM superstore ORDER BY price;
 
--- What is the most expensive item?
-SELECT item_name AS Most_Expensive_Item, MAX(price) AS Price FROM superstore;
-
 -- Select the items in the category of Kitchen Supplies.
 SELECT * FROM superstore WHERE category = "Kitchen Supplies";
 
 -- What is the average price of the Kitchen Supplies items?
-SELECT AVG(price) AS Average_Price_Of_Kitchen_Supplies_Items
-FROM superstore WHERE category = "Kitchen Supplies";
+SELECT AVG(price) AS Average_Price_Of_Kitchen_Supplies_Items FROM superstore WHERE category = "Kitchen Supplies";
 
--- What items have an average rating equal to 4.5 or higher?
-SELECT * FROM superstore
-WHERE average_rating >= 4.5 ORDER BY average_rating DESC;
+-- What is the average of the average rating of all items?
+SELECT AVG(average_rating) AS Average_Rating_Of_All_Items FROM superstore;
+
+-- What items have an average rating greater than or equal to 4.5?
+SELECT * FROM superstore WHERE average_rating >= 4.5 ORDER BY average_rating DESC;
+
+-- What items have an average rating of less than 4.5?
+SELECT * FROM superstore WHERE average_rating < 4.5 ORDER BY average_rating DESC;
+
+-- What is the most expensive item?
+SELECT * FROM superstore ORDER BY price DESC LIMIT 1;
+
+-- What is the total revenue from the most expensive items?
+SELECT item_name AS Most_Expensive_Item, price AS Price, stock_quantity AS Stock, (price * stock_quantity) AS Total_Revenue_Expected
+    FROM superstore ORDER BY price DESC LIMIT 1;
+
+-- What is the least expensive item?
+SELECT * FROM superstore ORDER BY price ASC LIMIT 1;
+
+-- What is the total revenue from the least expensive items?
+SELECT item_name AS Least_Expensive_Item, price AS Price, stock_quantity AS Stock, (price * stock_quantity) AS Total_Revenue_Expected
+    FROM superstore ORDER BY price ASC LIMIT 1;
+
+-- What is the total revenue which can be generated from the superstore?
+SELECT SUM(price * stock_quantity) AS Total_Revenue_Expected_From_Superstore FROM superstore;
+
+-- What is the total revenue that can be generated from each one of the superstore items?
+SELECT item_name AS Item, price AS Price, stock_quantity AS Stock, (price * stock_quantity) AS Total_Revenue_Expected
+    FROM superstore ORDER BY Total_Revenue_Expected DESC;
+
+-- Which item will generate the most revenue?
+SELECT item_name AS Item, price AS Price, stock_quantity AS Stock, (price * stock_quantity) AS Total_Revenue_Expected
+    FROM superstore ORDER BY Total_Revenue_Expected DESC LIMIT 1;
+
+-- Which item will generate the least revenue?
+SELECT item_name AS Item, price AS Price, stock_quantity AS Stock, (price * stock_quantity) AS Total_Revenue_Expected
+    FROM superstore ORDER BY Total_Revenue_Expected ASC LIMIT 1;
