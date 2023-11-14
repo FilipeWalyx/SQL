@@ -40,3 +40,9 @@ FROM FebSales febs LEFT JOIN customers cust
 ON febs.orderID = cust.order_id
 WHERE febs.Quantity> 2
 AND length(orderID)=6 AND orderID<>'Order ID';
+
+-- List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, SUM(Quantity) AS Quantity_Sold FROM FebSales
+WHERE location LIKE '%Los Angeles%'
+AND length(orderID)=6 AND orderID<>'Order ID'
+GROUP BY Product;
