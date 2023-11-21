@@ -95,3 +95,14 @@ FROM Spotifydata ORDER BY popularity DESC;
 -- to the ones with the least amount of lyrics.
 SELECT track_name, artist_name, speechiness FROM Spotifydata
 ORDER BY speechiness DESC;
+
+/* Calculate the average popularity for the artists in the Spotify data table.
+Then, for every artist with an average popularity of 90 or above,
+show their name, their average popularity, and label them as a “Top Star”. */
+WITH Artists_Average_Popularity AS(
+SELECT sd.artist_name, AVG(sd.popularity) AS average_popularity
+FROM Spotifydata sd GROUP BY sd.artist_name
+)
+SELECT artist_name, average_popularity, 'Top Star' AS tag
+FROM Artists_Average_Popularity
+WHERE average_popularity>=90;
